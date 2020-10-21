@@ -3,7 +3,16 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # path('', views.index, name='index'),
-    path('sign_in', views.sign_up_bot_place, name='auth'),
-    path('', views.sign_up_bot_place, name='auth'),
+
+    path('', views.sign_in_bot_place, name='login-Bot-Place'),
+    path('sign-in', views.sign_in_bot_place, name='sign-in-Bot-Place'),
+
+    path('sign-out', views.sign_out_bot_place, name='sign-out-Bot-Place'),
+
+    path('sign-un', views.sign_up_bot_place, name='create-Bot-Place'),
+    path('create-bot-place', views.sign_up_bot_place, name='create-Bot-Place'),
+
+    path('bot-place', views.bot_place, name='Bot-Place'),
+
+    path('choosing-bot-for', views.choosing_bot_for, name='choosing-bot-for'),
 ]

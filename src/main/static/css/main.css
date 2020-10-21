@@ -3,6 +3,8 @@
     color: #0e918c;
     color: #f6830f;
     color: #bb2205;
+    color: #eeab68;
+    color: #354ea3;
 }
 
 body {
@@ -35,7 +37,7 @@ body {
     width: 200px;
     height: 200px;
 
-    background-color: #d2d3c9;
+    background-color: #eeab68;
 
     border-radius: 50%;
 

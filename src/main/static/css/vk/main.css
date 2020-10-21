@@ -1,0 +1,54 @@
+.palet {
+    color: #1b262c;
+    color: #0f4c75;
+    color: #3282b8;
+    color: #bbe1fa;
+}
+
+body {
+    background-color: #3282b8;
+}
+
+.create_vk_bot_form {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 2%;
+
+    width: 30%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: #0f4c75;
+
+    border-radius: 30px;
+}
+
+.fa-vk {
+    font-size: 30px;
+    color: #3282b8;
+}
+
+.create_vk_bot_btn {
+    padding: 3%;
+
+    background-color: #3282b8;
+
+    border: none;
+    border-radius: 5px;
+
+    font-size: 20px;
+    font-weight: 600;
+    color: #0f4c75;
+
+    transition: all .2s;
+}
+
+.create_vk_bot_btn:hover {
+    transform: scale(.95);
+}

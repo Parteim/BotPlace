@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/bot_place.css' %}">
+{% endblock styles %}
+
+{% block main %}
+
+<header>
+
+    <menu class="bot_place_menu">
+
+        <li class="bot_place_menu_left">
+            <a class="bot_place_menu_link" href="{% url 'choosing-bot-for' %}">Create Bot</a>
+        </li>
+
+        <li class="bot_place_menu_center">
+            <h1 class="bot_place_title">
+                Bot Place
+            </h1>
+        </li>
+
+        <li class="bot_place_menu_right">
+            <a class="bot_place_menu_link" href="{% url 'sign-out-Bot-Place' %}">Sign out</a>
+        </li>
+
+    </menu>
+
+</header>
+
+<main>
+
+    <ul class="existing_bots_list">
+
+        <li class="existing_bot"></li>
+        <li class="existing_bot"></li>
+        <li class="existing_bot"></li>
+        <li class="existing_bot"></li>
+
+    </ul>
+
+</main>
+
+{% endblock main %}

@@ -2,9 +2,21 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/vk/vk_page.css' %}"> 
+<link rel="stylesheet" href="{% static 'css/vk/main.css' %}">
 {% endblock styles %}
 
 {% block main %}
+
+<form action="#" class="create_vk_bot_form">
+    {% csrf_token %}
+    <i class="fab fa-vk"></i>
+
+    <div class="fields_container">
+        {{ form }}
+    </div>
+
+    <button class="create_vk_bot_btn">Create</button>
+
+</form>
 
 {% endblock main %}
