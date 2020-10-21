@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;700&display=swap"
+          rel="stylesheet">
+    <script src="https://kit.fontawesome.com/9b74a98d1b.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block styles %}
+
+    {% endblock styles %}
+
+    <title>{{ title }}</title>
+</head>
+<body>
+
+{% block main %}
+
+
+{% endblock main %}
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+.create_bot_pace_form {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: 2%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    background-color: #f6830f;
+
+    border-radius: 30px;
+}
+
+.create_bot_place_title {
+
+    margin: 0;
+
+    text-align: center;
+    font-size: 30px;
+    color: #bb2205;
+}
+
+.fields_container {
+    position: relative;
+
+    margin: 5% 0;
+
+    width: 90%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.create_bot_place_input {
+    margin: 2% 0;
+    padding: 1% 3%;
+    
+    width: 100%;
+
+    border: none;
+    border-radius: 5px;
+
+    font-size: 18px;
+}
+
+.create_bot_place_btn {
+    padding: 2%;
+
+    background-color: #bb2205;
+
+    border: none;
+    border-radius: 5px;
+
+    font-size: 20px;
+    font-weight: 600;
+    color: #f6830f;
+
+    transition: all .2s;
+}
+
+.create_bot_place_btn:hover {
+    transform: scale(.9);
+}

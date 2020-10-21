@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/create_bot_place.css' %}">
+{% endblock styles %}
+
+{% block main %}
+
+<form class="create_bot_pace_form" method="POST">
+    {% csrf_token %}
+    <h1 class="create_bot_place_title">Create Bot Place</h1>
+
+    <div class="fields_container">
+        {{ form }}
+    </div>
+
+    <button class="create_bot_place_btn" type="submit">Create</button>
+
+</form>
+
+{% endblock main %}
