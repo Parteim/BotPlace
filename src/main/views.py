@@ -11,10 +11,10 @@ def sign_up_bot_place(request):
         form = BotPlaceCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('sign_in')
+            return redirect('sign-in-Bot-Place')
 
     data = {
-        'title': 'Sign in',
+        'title': 'Sign up',
         'form': BotPlaceCreationForm,
         'form_title': 'Create Bot Place',
         'btn': 'Create',
@@ -24,6 +24,9 @@ def sign_up_bot_place(request):
 
 
 def sign_in_bot_place(request):
+    if request.user.is_authenticated:
+        return redirect('Bot-Place')
+
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']

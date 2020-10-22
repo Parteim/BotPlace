@@ -9,7 +9,7 @@ urlpatterns = [
 
     path('sign-out', views.sign_out_bot_place, name='sign-out-Bot-Place'),
 
-    path('sign-un', views.sign_up_bot_place, name='create-Bot-Place'),
+    path('sign-up', views.sign_up_bot_place, name='sign-up-Bot-Place'),
     path('create-bot-place', views.sign_up_bot_place, name='create-Bot-Place'),
 
     path('bot-place', views.bot_place, name='Bot-Place'),

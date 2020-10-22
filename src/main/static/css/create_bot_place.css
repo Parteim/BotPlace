@@ -7,6 +7,8 @@
 
     padding: 2%;
 
+    width: 30%;
+
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -73,5 +75,22 @@
 }
 
 .create_bot_place_btn:hover {
-    transform: scale(.95);
+    background-color: #a01f06;
+}
+
+
+
+.to_create_bot_place {
+    margin-top: 2%;
+
+    text-transform: lowercase;
+    font-size: 16px;
+    font-weight: 400;
+    color: #bb2205;
+
+    transition: all .2s;
+}
+
+.to_create_bot_place:hover {
+    color: #a01f06;
 }
