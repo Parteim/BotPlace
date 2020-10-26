@@ -33,10 +33,15 @@
 
     <ul class="existing_bots_list">
 
-        <li class="existing_bot"></li>
-        <li class="existing_bot"></li>
-        <li class="existing_bot"></li>
-        <li class="existing_bot"></li>
+        {% for bot in bots %}
+        {% if bot.bot_for == 'vkontakte' %}
+        <li class="existing_bot">{{ bot.bot_name }}</li>
+        {% if %}
+        {% endfor %}
+
+        <!--        <li class="existing_bot"></li>-->
+        <!--        <li class="existing_bot"></li>-->
+        <!--        <li class="existing_bot"></li>-->
 
     </ul>
 

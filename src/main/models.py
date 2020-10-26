@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
@@ -60,3 +62,43 @@ class BotPlace(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+class BaseBotManager(models.Manager):
+    def create_bot(self, bot_place, bot_name, bot_for):
+        unique_bot_id = uuid.uuid4().hex[:6].upper()
+        bot = self.model(
+            bot_place=bot_place,
+            bot_name=bot_name,
+            unique_bot_id=unique_bot_id,
+            bot_for=bot_for,
+        )
+
+        bot.save()
+
+        return bot
+
+
+class BaseBot(models.Model):
+    bot_place = models.ForeignKey(BotPlace, on_delete=models.CASCADE)
+
+    bot_name = models.CharField(max_length=100)
+
+    unique_bot_id = models.CharField(max_length=20, unique=True)
+
+    objects = BaseBotManager()
+
+    BOT_FOR_CHOICE = (
+        ('vk', 'vkontakte'),
+        ('tg', 'telegram'),
+    )
+
+    bot_for = models.CharField(max_length=3, choices=BOT_FOR_CHOICE)
+
+    REQUIRED_FIELDS = [
+        'bot_name',
+        'bot_for',
+    ]
+
+    def __str__(self):
+        return f'<name: {self.bot_name}; id: {self.unique_bot_id}>'

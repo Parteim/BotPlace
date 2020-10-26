@@ -5,8 +5,6 @@ from .models import VkBot
 
 
 class VkBotFormCreation(forms.ModelForm):
-    bot_place = forms.CharField(label='', widget=forms.HiddenInput())
-
     bot_name = forms.CharField(label='', widget=forms.TextInput(
         attrs={
             'id': 'email',
@@ -18,4 +16,4 @@ class VkBotFormCreation(forms.ModelForm):
 
     class Meta:
         model = VkBot
-        fields = ('bot_name', 'bot_place')
+        fields = ('bot_name',)

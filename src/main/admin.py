@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import BotPlace
+from .models import BotPlace, BaseBot
 from .forms import BotPlaceChangeForm, BotPlaceCreationForm
 
 
@@ -31,3 +31,5 @@ class BotPlaceAdmin(BaseUserAdmin):
 
 admin.site.register(BotPlace, BotPlaceAdmin)
 admin.site.unregister(Group)
+
+admin.site.register(BaseBot)

@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from .admin import BotPlaceCreationForm
 from .forms import BotPlaceLogin
+from .models import BaseBot
 
 
 def sign_up_bot_place(request):
@@ -54,6 +55,7 @@ def sign_out_bot_place(request):
 def bot_place(request):
     data = {
         'title': 'Bot place',
+        'bots': BaseBot.objects.filter(bot_place=request.user),
     }
     return render(request, 'base/bot_place.html', data)
 
