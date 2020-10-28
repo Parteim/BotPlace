@@ -8,7 +8,7 @@ class BotInstance {
 
     static revealFlag = false;
 
-    botLiat = document.getElementById('existing_bot_list');
+    botLisat = document.getElementById('existing_bot_list');
 
     botItem = document.createElement('li');
     botLogoContainer = document.createElement('div');
@@ -23,7 +23,7 @@ class BotInstance {
         this.botFor = botFor;
         this.dateOfCreation = dateOfCreation;
 
-        this.creteItemOfListBot()
+        this.creteItemOfListBot();
     }
 
     creteItemOfListBot() {
@@ -59,26 +59,28 @@ class BotInstance {
 
     botPanel () {
         console.log('call botPanel');
+        BotInstance.revealFlag = false;
     }
 
     botSettings () {
         console.log('call botSettings');
+        BotInstance.revealFlag = false;
     }
 
     insertToBotlist(obj) {
-        this.botLiat.appendChild(this.botItem);
+        this.botLisat.appendChild(this.botItem);
 
         this.botTitle.addEventListener("click", function () {
             if (!BotInstance.revealFlag) {
-                obj.botPanel();
                 BotInstance.revealFlag = true;
+                obj.botPanel();
             }
         })
 
         this.botBarSettingsBtn.addEventListener("click", function () {
             if (!BotInstance.revealFlag) {
-                obj.botSettings();
                 BotInstance.revealFlag = true;
+                obj.botSettings();
             }
         })
     }
@@ -93,18 +95,20 @@ function getBotList () {
     request.get(
         'http://127.0.0.1:8000/get-list-bots',
         function (response) {
-            for (let i in response) {
-                let botData = response[i].fields;
-                let bot = new BotInstance(
-                    botData.bot_name,
-                    botData.unique_bot_id,
-                    botData.bot_for,
-                    botData.date_of_creation,
-                );
+            if (response) {
+                document.getElementById('existing_bot_list').innerHTML = '';
 
-                console.log(botData.bot_for);
-
-                bot.insertToBotlist(bot);
+                for (let i in response) {
+                    let botData = response[i].fields;
+                    let bot = new BotInstance(
+                        botData.bot_name,
+                        botData.unique_bot_id,
+                        botData.bot_for,
+                        botData.date_of_creation,
+                    );
+    
+                    bot.insertToBotlist(bot);
+                }
             }
         },
         1,

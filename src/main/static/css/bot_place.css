@@ -31,7 +31,7 @@
     color: #a01f06;
 }
 
-.existing_bots_list {
+.bot_list_box {
     position: absolute;
 
     top: 70%;
@@ -49,15 +49,34 @@
 
     background-color: #f6830f;
 
-    overflow-y: scroll;
-
     border-radius: 30px;
 }
 
-.existing_bots_list::-webkit-scrollbar {
-    
+.existing_bots_list {
 
-    background-color: #bb2205;
+    width: 95%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.existing_bots_list::-webkit-scrollbar {
+
+    background-color: #0e918c;
+
+    border-radius: 10px;
+}
+
+.existing_bots_list::-webkit-scrollbar-thumb {
+
+    background-color: #f6830f;
+
+    border: 3px solid #0e918c;
 
     border-radius: 10px;
 }
