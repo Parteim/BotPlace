@@ -15,4 +15,7 @@ urlpatterns = [
     path('bot-place', views.bot_place, name='Bot-Place'),
 
     path('choosing-bot-for', views.choosing_bot_for, name='choosing-bot-for'),
+
+
+    path('get-list-bots', views.get_list_bots, name='get-list-bots'),
 ]

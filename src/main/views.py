@@ -1,6 +1,10 @@
-from django.shortcuts import render, redirect
+import json
+
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
 
 from .admin import BotPlaceCreationForm
 from .forms import BotPlaceLogin
@@ -65,3 +69,9 @@ def choosing_bot_for(request):
         'title': 'Choosing bot for',
     }
     return render(request, 'base/choosing_bot_for.html', data)
+
+
+def get_list_bots(request):
+    bots = BaseBot.objects.filter(bot_place=request.user)
+    data = serialize('json', bots, cls=DjangoJSONEncoder)
+    return HttpResponse(data, content_type="application/json")

@@ -2,6 +2,9 @@
 {% load static %}
 
 {% block styles %}
+<link rel="stylesheet" href="{% static 'js/bot_place.js' %}">
+<link rel="stylesheet" href="{% static 'js/requests.js' %}">
+
 <link rel="stylesheet" href="{% static 'css/bot_place.css' %}">
 {% endblock styles %}
 
@@ -31,20 +34,35 @@
 
 <main>
 
-    <ul class="existing_bots_list">
+    <ul id="existing_bot_list"class="existing_bots_list">
 
         {% for bot in bots %}
-        {% if bot.bot_for == 'vkontakte' %}
-        <li class="existing_bot">{{ bot.bot_name }}</li>
-        {% if %}
+        {% if bot.bot_for == 'vk' %}
+        <li class="existing_bot vk_bot">
+            <div class="existing_bot_logo">
+                <i class="fab fa-vk"></i>
+            </div>
+            <h2 class="exiting_vk_bot_title">{{ bot.bot_name }}</h2>
+            <ul class="exiting_bot_bar">
+                <li class="exiting_bot_bar_item"><button class="exiting_bot_bar_btn exiting_vk_bot_bar_btn exiting_bot_bar_settings"><i class="fas fa-cog"></i></button></li>
+            </ul>
+        </li>
+        {% endif %}
         {% endfor %}
 
-        <!--        <li class="existing_bot"></li>-->
-        <!--        <li class="existing_bot"></li>-->
-        <!--        <li class="existing_bot"></li>-->
-
     </ul>
+
+    <div class="bot_panel">
+
+        
+
+    </div>
 
 </main>
 
 {% endblock main %}
+
+{% block scripts %}
+
+
+{% endblock scripts %}

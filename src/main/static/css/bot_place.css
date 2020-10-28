@@ -64,3 +64,66 @@
 
     border-radius: 10px;
 }
+
+.exiting_vk_bot_title {
+    font-size: 31px;
+    color: #3282b8;
+    text-align: center;
+
+    cursor: pointer;
+}
+
+.exiting_bot_bar {
+    position: absolute;
+
+    top: 6%;
+    right: 2%;
+    transform: translate(-5%, -5%);
+}
+
+.exiting_bot_bar_btn {
+    background: none;
+
+    border: none;
+
+    transition: all .2s;
+}
+
+.exiting_vk_bot_bar_btn {
+    font-size: 15px;
+    color: #3282b8;
+}
+
+.exiting_bot_bar_settings:hover {
+    transform: rotate(90deg);
+}
+
+.existing_bot_logo {
+    position: absolute;
+
+    top: 6%;
+    left: 2%;
+    transform: translate(-5%, -5%);
+
+    font-size: 15px;
+    color: #3282b8;
+}
+
+
+
+.bot_panel {
+    position: absolute;
+
+    top: 70%;
+    left: 34%;
+    transform: translate(-1%, -70%);
+
+    padding: 1%;
+
+    width: 64%;
+    height: 70%;
+
+    background-color: #f6830f;
+
+    border-radius: 30px;
+}
