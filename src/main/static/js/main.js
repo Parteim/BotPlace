@@ -29,7 +29,7 @@ class Request {
         console.log(this.httpRequest)
     }
 
-    post(url, data, func) {
+    post(url, func, data) {
         let httpR = this.httpRequest;
         this.httpRequest.onreadystatechange = function () {
             Request.sendRequest(httpR, func);
@@ -59,91 +59,4 @@ class Request {
             }
         }
     }
-}
-
-
-class BotInstance {
-    botName = NaN;
-    uniqueBotId = NaN;
-    botFor = NaN;
-    dateOfCreation = NaN;
-
-    static revealFlag = false;
-
-    wall = document.getElementById('existing_bot_list');
-
-    botItem = document.createElement('li');
-    botLogoContainer = document.createElement('div');
-    botTitle = document.createElement('h2');
-    botBar = document.createElement('ul');
-    botBarItem = document.createElement('li');
-    botBarSettingsBtn = document.createElement('button');
-
-    constructor (botName, uniqueBotId, botFor, dateOfCreation) {
-        this.botName = botName;
-        this.uniqueBotId = uniqueBotId;
-        this.botFor = botFor;
-        this.dateOfCreation = dateOfCreation;
-
-        this.creteItemOfListBot()
-    }
-
-    creteItemOfListBot() {
-        this.botItem.className = 'existing_bot ';
-        this.botLogoContainer.className = 'existing_bot_logo ';
-        this.botTitle.className = 'exiting_bot_title ';
-        this.botBar.className = 'exiting_bot_bar ';
-        this.botBarItem.className = 'exiting_bot_bar_item ';
-        this.botBarSettingsBtn.className = 'exiting_bot_bar_btn ';
-        this.botBarSettingsBtn.className = 'exiting_bot_bar_settings ';
-
-        if (this.botFor == 'vk') {
-            this.botItem.className += 'vk_bot ';
-            this.botTitle.className += 'exiting_vk_bot_title ';
-            this.botBarSettingsBtn.className += 'exiting_vk_bot_bar_btn ';
-        }
-
-        this.botBarSettingsBtn.innerHTMl = '<i class="fas fa-cog"></i>';
-        this.botLogoContainer.innerHTMl = '<i class="fab fa-vk"></i>';
-
-        this.botItem.appendChild(this.botLogoContainer);
-        this.botItem.appendChild(this.botTitle);
-        this.botItem.appendChild(this.botBar);
-
-        this.botBar.appendChild(this.botBarItem);
-
-        this.botBarItem.appendChild(this.botBarSettingsBtn);
-
-        this.botTitle.innerText = this.botName;
-
-    }
-
-    botPanel () {
-
-    }
-
-    botSettings () {
-        
-    }
-
-    insertToBotlist(obj) {
-        this.wall.appendChild(this.botItem);
-
-        this.botTitle.addEventListener("click", function () {
-            if (!BotInstance.revealFlag) {
-                obj.botPanel();
-                BotInstance.revealFlag = true;
-            }
-        })
-
-        this.botBarSettingsBtn.addEventListener("click", function () {
-            if (!BotInstance.revealFlag) {
-                obj.botSettings();
-                BotInstance.revealFlag = true;
-            }
-        })
-    }
-
-
-
 }

@@ -2,9 +2,6 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'js/bot_place.js' %}">
-<link rel="stylesheet" href="{% static 'js/requests.js' %}">
-
 <link rel="stylesheet" href="{% static 'css/bot_place.css' %}">
 {% endblock styles %}
 
@@ -36,19 +33,17 @@
 
     <ul id="existing_bot_list"class="existing_bots_list">
 
-        {% for bot in bots %}
-        {% if bot.bot_for == 'vk' %}
-        <li class="existing_bot vk_bot">
-            <div class="existing_bot_logo">
-                <i class="fab fa-vk"></i>
-            </div>
-            <h2 class="exiting_vk_bot_title">{{ bot.bot_name }}</h2>
-            <ul class="exiting_bot_bar">
-                <li class="exiting_bot_bar_item"><button class="exiting_bot_bar_btn exiting_vk_bot_bar_btn exiting_bot_bar_settings"><i class="fas fa-cog"></i></button></li>
-            </ul>
-        </li>
-        {% endif %}
-        {% endfor %}
+
+<!--        <li class="existing_bot vk_bot">-->
+<!--            <div class="existing_bot_logo">-->
+<!--                <i class="fab fa-vk"></i>-->
+<!--            </div>-->
+<!--            <h2 class="exiting_vk_bot_title">{{ bot.bot_name }}</h2>-->
+<!--            <ul class="exiting_bot_bar">-->
+<!--                <li class="exiting_bot_bar_item"><button class="exiting_bot_bar_btn exiting_vk_bot_bar_btn exiting_bot_bar_settings"><i class="fas fa-cog"></i></button></li>-->
+<!--            </ul>-->
+<!--        </li>-->
+
 
     </ul>
 
@@ -64,5 +59,5 @@
 
 {% block scripts %}
 
-
+<script type="module" src="{% static 'js/bot_place.js' %}"></script>
 {% endblock scripts %}

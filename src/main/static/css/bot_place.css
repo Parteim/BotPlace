@@ -49,7 +49,17 @@
 
     background-color: #f6830f;
 
+    overflow-y: scroll;
+
     border-radius: 30px;
+}
+
+.existing_bots_list::-webkit-scrollbar {
+    
+
+    background-color: #bb2205;
+
+    border-radius: 10px;
 }
 
 .existing_bot {
