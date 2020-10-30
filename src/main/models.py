@@ -67,11 +67,11 @@ class BotPlace(AbstractBaseUser):
 
 class BaseBotManager(models.Manager):
     def create_bot(self, bot_place, bot_name, bot_for):
-        unique_bot_id = uuid.uuid4().hex[:6].upper()
+        bot_slug = uuid.uuid4().hex[:6].upper()
         bot = self.model(
             bot_place=bot_place,
             bot_name=bot_name,
-            unique_bot_id=unique_bot_id,
+            bot_slug=bot_slug,
             bot_for=bot_for,
         )
 
@@ -85,7 +85,7 @@ class BaseBot(models.Model):
 
     bot_name = models.CharField(max_length=100)
 
-    unique_bot_id = models.CharField(max_length=20, unique=True)
+    bot_slug = models.CharField(max_length=20, unique=True)
 
     date_of_creation = models.DateTimeField(default=timezone.now)
 
@@ -104,4 +104,4 @@ class BaseBot(models.Model):
     ]
 
     def __str__(self):
-        return f'<name: {self.bot_name}; id: {self.unique_bot_id}>'
+        return f'<name: {self.bot_name}; id: {self.bot_slug}>'

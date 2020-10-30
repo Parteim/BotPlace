@@ -95,7 +95,7 @@ function getBotList () {
     request.get(
         'http://127.0.0.1:8000/get-list-bots',
         function (response) {
-            if (response) {
+            if (response.length !== 0) {
                 document.getElementById('existing_bot_list').innerHTML = '';
 
                 for (let i in response) {

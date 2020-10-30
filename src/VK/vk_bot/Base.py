@@ -1,11 +1,17 @@
 import requests
 
 
-class BaseVkBot:
-    def __init__(self, version_api='5.124'):
-        self.bot_id = None
-        self.access_token = '2949bad42949bad42949bad4122924d73c229492949bad474ec05c908e127c920034d67'
+class VkBotInstance:
+    def __init__(self, access_token, version_api='5.124'):
+        self.access_token = access_token
         self.version_api = version_api
+
+
+class BaseVkBot:
+    def __init__(self, bot):
+        self.bot_id = None
+        self.access_token = bot.access_token
+        self.version_api = bot.version_api
         self.url = 'https://api.vk.com/method/'
 
     def get(self, method, **kwargs):
@@ -17,10 +23,10 @@ class BaseVkBot:
         params.update(kwargs)
 
         response = requests.get(
-            url=self.url+method,
+            url=self.url + method,
             params=params,
         )
-        return response.json()
+        return response
 
     def post(self, url, data=None, json=None, **kwargs):
         response = requests.post(
@@ -28,4 +34,4 @@ class BaseVkBot:
             data,
             json,
         )
-        return response.json()
+        return response

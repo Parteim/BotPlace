@@ -13,6 +13,9 @@ def vk_create_bot(request):
                 bot_place=request.user,
                 bot_name=request.POST['bot_name'],
                 bot_for='vk',
+                protection_key=request.POST['protection_key'],
+                services_key_accessing=request.POST['services_key_accessing'],
+                bot_id=request.POST['bot_id'],
             )
             print('vk bot created')
             return redirect('Bot-Place')
