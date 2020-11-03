@@ -2,9 +2,13 @@ import {Request} from './requests.js';
 
 class BotInstance {
     botName = NaN;
-    uniqueBotId = NaN;
+    botSlug = NaN;
     botFor = NaN;
     dateOfCreation = NaN;
+    botSettingsInfo = NaN;
+
+    static revealFlag = false;
+    static url = 'http://127.0.0.1:8000/'
 
     botLisat = document.getElementById('existing_bot_list');
 
@@ -15,13 +19,14 @@ class BotInstance {
     botBarItem = document.createElement('li');
     botBarSettingsBtn = document.createElement('button');
 
-    constructor (botName, uniqueBotId, botFor, dateOfCreation) {
+    constructor (botName, botSlug, botFor, dateOfCreation) {
         this.botName = botName;
-        this.uniqueBotId = uniqueBotId;
+        this.botSlug = botSlug;
         this.botFor = botFor;
         this.dateOfCreation = dateOfCreation;
 
         this.creteItemOfListBot();
+        this.getBotSettings();
     }
 
     creteItemOfListBot() {
@@ -56,6 +61,11 @@ class BotInstance {
     }
 
     botPanel () {
+        document.getElementById('bot_panel_title').innerHTML = this.botName;
+
+        let botPanelBody = document.getElementById('bot_panel_body');
+        botPanelBody.innerHTML = '';
+
         console.log('call botPanel');
     }
 
@@ -63,42 +73,80 @@ class BotInstance {
         document.getElementById('bot_panel_title').innerHTML = this.botName;
 
         console.log('call botSettings');
-        document.getElementById('bot_panel_body').innerHTML = '';
+
+        let botPanelBody = document.getElementById('bot_panel_body');
+        botPanelBody.innerHTML = '';
 
         let form = document.createElement('form');
         let botNameField = document.createElement('input');
         let botAppIdField = document.createElement('input');
         let botProtectionKeyField = document.createElement('input');
         let botServecesKeyField = document.createElement('input');
+        let settingsBotUpdateBtn  = document.createElement('button');
 
         form.className = 'settings_bot_form';
         botNameField.className = 'settings_bot_field';
         botAppIdField.className = 'settings_bot_field';
         botProtectionKeyField.className = 'settings_bot_field';
         botServecesKeyField.className = 'settings_bot_field';
+        settingsBotUpdateBtn.className = 'setting_bot_update_btn';
 
         botNameField.placeholder = 'Bot name';
         botAppIdField.placeholder = 'Application id';
         botProtectionKeyField.placeholder = 'Protection key';
         botServecesKeyField.placeholder = 'Services key of accessing';
+
+        settingsBotUpdateBtn.innerText = 'Update';
+
+        form.appendChild(botNameField);
+        form.appendChild(botAppIdField);
+        form.appendChild(botProtectionKeyField);
+        form.appendChild(botServecesKeyField);
+        form.appendChild(settingsBotUpdateBtn);
+
+        if (this.botSettingsInfo) {
+            botNameField.value = this.botName;
+            botAppIdField.value = botSettingsInfo.bot_id;
+            botProtectionKeyField.value = botSettingsInfo.protection_key;
+            botServecesKeyField.value = botSettingsInfo.services_key_accessing;
+
+            botPanelBody.appendChild(form);
+        }
+        else {
+            return;
+        }
+
     }
 
     insertToBotlist(obj) {
         this.botLisat.appendChild(this.botItem);
 
         this.botTitle.addEventListener("click", function () {
-            if (!BotInstance.revealFlag) {
-                BotInstance.revealFlag = true;
-                obj.botPanel();
-            }
+            obj.botPanel();
         })
 
         this.botBarSettingsBtn.addEventListener("click", function () {
-            if (!BotInstance.revealFlag) {
-                BotInstance.revealFlag = true;
-                obj.botSettings();
-            }
+            obj.botSettings();
         })
+    }
+
+    getBotSettings() {
+        let request = new Request();
+        let url = BotInstance.url;
+
+        if (this.botFor == 'vk') {
+            url += 'vk/' + 'get-vk-bot/' + this.botSlug;
+        }
+
+        request.get(
+            url,
+            this.saveSettingsInfo
+        );
+    }
+
+    saveSettingsInfo(settings) {
+        console.log(settings[0]);
+        this.botSettingsInfo = 1;
     }
 
 
@@ -118,7 +166,7 @@ function getBotList () {
                     let botData = response[i].fields;
                     let bot = new BotInstance(
                         botData.bot_name,
-                        botData.unique_bot_id,
+                        botData.bot_slug,
                         botData.bot_for,
                         botData.date_of_creation,
                     );
