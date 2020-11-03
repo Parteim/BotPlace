@@ -1,9 +1,16 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse, Http404
+from django.contrib.auth.decorators import login_required
+
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
+
+import json
 
 from .forms import VkBotFormCreation
 from .models import VkBot
 
 
+@login_required
 def vk_create_bot(request):
     if request.method == 'POST':
         print(request.POST)
@@ -25,3 +32,19 @@ def vk_create_bot(request):
         'form': VkBotFormCreation,
     }
     return render(request, 'vk/create_vk_bot.html', data)
+
+
+@login_required
+def get_vk_bot_instance(request, bot_slug):
+    print(bot_slug)
+    try:
+        bot = VkBot.objects.get(bot_slug=bot_slug)
+    except VkBot.DoesNotExist:
+        raise Http404('bot does not exist')
+    print(bot.bot_place)
+    print(request.user)
+    if bot.bot_place != request.user:
+        return HttpResponse(status=403, content_type="application/json")
+    else:
+        data = serialize('json', [bot])
+        return HttpResponse(data, content_type="application/json")

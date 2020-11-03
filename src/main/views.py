@@ -1,5 +1,3 @@
-import json
-
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -56,6 +54,7 @@ def sign_out_bot_place(request):
     return redirect('sign-in-Bot-Place')
 
 
+@login_required
 def bot_place(request):
     data = {
         'title': 'Bot place',
@@ -64,6 +63,7 @@ def bot_place(request):
     return render(request, 'base/bot_place.html', data)
 
 
+@login_required
 def choosing_bot_for(request):
     data = {
         'title': 'Choosing bot for',
@@ -71,6 +71,7 @@ def choosing_bot_for(request):
     return render(request, 'base/choosing_bot_for.html', data)
 
 
+@login_required
 def get_list_bots(request):
     bots = BaseBot.objects.filter(bot_place=request.user)
     data = serialize('json', bots, cls=DjangoJSONEncoder)

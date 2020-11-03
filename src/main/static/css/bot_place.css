@@ -183,7 +183,7 @@
     text-align: center;
     font-size: 30px;
     font-weight: 700;
-    color: #0e918c;
+    color: #bb2205;
 }
 
 .bot_panel_body {
@@ -205,4 +205,36 @@
     background-color: #eeab68;
 
     border-radius: 10px;
+}
+
+
+.settings_bot_form {
+    position: relative;
+
+    width: 40%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.settings_bot_field {
+    padding: 2% 5%;
+    margin: 2% 0;
+
+    width: 100%;
+
+    background-color: #eeab68;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 21px;
+    font-weight: 600;
+
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+.settings_bot_field::placeholder {
+    color: #b36150;
 }

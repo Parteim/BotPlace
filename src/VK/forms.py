@@ -40,4 +40,4 @@ class VkBotFormCreation(forms.ModelForm):
 
     class Meta:
         model = VkBot
-        fields = ('bot_name', 'protection_key', 'services_key_accessing', 'bot_id',)
+        fields = ('bot_name', 'bot_id', 'protection_key', 'services_key_accessing',)

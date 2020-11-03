@@ -6,8 +6,6 @@ class BotInstance {
     botFor = NaN;
     dateOfCreation = NaN;
 
-    static revealFlag = false;
-
     botLisat = document.getElementById('existing_bot_list');
 
     botItem = document.createElement('li');
@@ -59,12 +57,30 @@ class BotInstance {
 
     botPanel () {
         console.log('call botPanel');
-        BotInstance.revealFlag = false;
     }
 
     botSettings () {
+        document.getElementById('bot_panel_title').innerHTML = this.botName;
+
         console.log('call botSettings');
-        BotInstance.revealFlag = false;
+        document.getElementById('bot_panel_body').innerHTML = '';
+
+        let form = document.createElement('form');
+        let botNameField = document.createElement('input');
+        let botAppIdField = document.createElement('input');
+        let botProtectionKeyField = document.createElement('input');
+        let botServecesKeyField = document.createElement('input');
+
+        form.className = 'settings_bot_form';
+        botNameField.className = 'settings_bot_field';
+        botAppIdField.className = 'settings_bot_field';
+        botProtectionKeyField.className = 'settings_bot_field';
+        botServecesKeyField.className = 'settings_bot_field';
+
+        botNameField.placeholder = 'Bot name';
+        botAppIdField.placeholder = 'Application id';
+        botProtectionKeyField.placeholder = 'Protection key';
+        botServecesKeyField.placeholder = 'Services key of accessing';
     }
 
     insertToBotlist(obj) {

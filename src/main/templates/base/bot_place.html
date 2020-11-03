@@ -58,14 +58,23 @@
     <div id="bot_panel" class="bot_panel">
 
         <header class="bot_panel_head">
-            <h2 class="bot_panel_title">Bot name</h2>
+            <h2 id="bot_panel_title" class="bot_panel_title">Bot name</h2>
         </header>
         
-        <main class="bot_panel_body">
+        <main id="bot_panel_body" class="bot_panel_body">
 
+            <!-- <div class="bot_panel_section"></div>
             <div class="bot_panel_section"></div>
-            <div class="bot_panel_section"></div>
-            <div class="bot_panel_section"></div>
+            <div class="bot_panel_section"></div> -->
+
+            <form class="settings_bot_form">
+
+                <input placeholder="Bot name" name="bot_name" type="text" class="settings_bot_field">
+                <input placeholder="Application id" name="bot_id" type="text" class="settings_bot_field">
+                <input placeholder="Protection key" name="protection_key" type="text" class="settings_bot_field">
+                <input placeholder="Services key of accessing" name="services_key_accessing" type="text" class="settings_bot_field">
+    
+            </form>
             
         </main>
 
