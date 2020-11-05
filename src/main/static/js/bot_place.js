@@ -5,12 +5,11 @@ class BotInstance {
     botSlug = NaN;
     botFor = NaN;
     dateOfCreation = NaN;
-    botSettingsInfo = NaN;
 
     static revealFlag = false;
     static url = 'http://127.0.0.1:8000/'
 
-    botLisat = document.getElementById('existing_bot_list');
+    botList = document.getElementById('existing_bot_list');
 
     botItem = document.createElement('li');
     botLogoContainer = document.createElement('div');
@@ -19,14 +18,13 @@ class BotInstance {
     botBarItem = document.createElement('li');
     botBarSettingsBtn = document.createElement('button');
 
-    constructor (botName, botSlug, botFor, dateOfCreation) {
+    constructor(botName, botSlug, botFor, dateOfCreation) {
         this.botName = botName;
         this.botSlug = botSlug;
         this.botFor = botFor;
         this.dateOfCreation = dateOfCreation;
 
         this.creteItemOfListBot();
-        this.getBotSettings();
     }
 
     creteItemOfListBot() {
@@ -60,7 +58,7 @@ class BotInstance {
 
     }
 
-    botPanel () {
+    botPanel() {
         document.getElementById('bot_panel_title').innerHTML = this.botName;
 
         let botPanelBody = document.getElementById('bot_panel_body');
@@ -69,91 +67,119 @@ class BotInstance {
         console.log('call botPanel');
     }
 
-    botSettings () {
-        document.getElementById('bot_panel_title').innerHTML = this.botName;
+    botSettings(obj) {
+        console.log('call settings');
 
-        console.log('call botSettings');
+        let request = new Request();
+        let url = BotInstance.url;
 
-        let botPanelBody = document.getElementById('bot_panel_body');
-        botPanelBody.innerHTML = '';
-
-        let form = document.createElement('form');
-        let botNameField = document.createElement('input');
-        let botAppIdField = document.createElement('input');
-        let botProtectionKeyField = document.createElement('input');
-        let botServecesKeyField = document.createElement('input');
-        let settingsBotUpdateBtn  = document.createElement('button');
-
-        form.className = 'settings_bot_form';
-        botNameField.className = 'settings_bot_field';
-        botAppIdField.className = 'settings_bot_field';
-        botProtectionKeyField.className = 'settings_bot_field';
-        botServecesKeyField.className = 'settings_bot_field';
-        settingsBotUpdateBtn.className = 'setting_bot_update_btn';
-
-        botNameField.placeholder = 'Bot name';
-        botAppIdField.placeholder = 'Application id';
-        botProtectionKeyField.placeholder = 'Protection key';
-        botServecesKeyField.placeholder = 'Services key of accessing';
-
-        settingsBotUpdateBtn.innerText = 'Update';
-
-        form.appendChild(botNameField);
-        form.appendChild(botAppIdField);
-        form.appendChild(botProtectionKeyField);
-        form.appendChild(botServecesKeyField);
-        form.appendChild(settingsBotUpdateBtn);
-
-        if (this.botSettingsInfo) {
-            botNameField.value = this.botName;
-            botAppIdField.value = botSettingsInfo.bot_id;
-            botProtectionKeyField.value = botSettingsInfo.protection_key;
-            botServecesKeyField.value = botSettingsInfo.services_key_accessing;
-
-            botPanelBody.appendChild(form);
-        }
-        else {
-            return;
+        if (obj.botFor == 'vk') {
+            url += 'vk/' + 'get-vk-bot/' + obj.botSlug;
         }
 
+        request.get(
+            url,
+            function (response) {
+                let botSettings = new BotSettings(obj, response[0].fields)
+
+            }
+        );
     }
 
-    insertToBotlist(obj) {
-        this.botLisat.appendChild(this.botItem);
+    insertToBotList(obj) {
+        this.botList.appendChild(this.botItem);
 
         this.botTitle.addEventListener("click", function () {
             obj.botPanel();
         })
 
         this.botBarSettingsBtn.addEventListener("click", function () {
-            obj.botSettings();
+            obj.botSettings(obj);
         })
     }
-
-    getBotSettings() {
-        let request = new Request();
-        let url = BotInstance.url;
-
-        if (this.botFor == 'vk') {
-            url += 'vk/' + 'get-vk-bot/' + this.botSlug;
-        }
-
-        request.get(
-            url,
-            this.saveSettingsInfo
-        );
-    }
-
-    saveSettingsInfo(settings) {
-        console.log(settings[0]);
-        this.botSettingsInfo = 1;
-    }
-
-
-
 }
 
-function getBotList () {
+class BotSettings {
+    botPanelBody = NaN;
+
+    form = NaN;
+    botNameField = NaN;
+    botAppIdField = NaN;
+    botProtectionKeyField = NaN;
+    botServicesKeyField = NaN;
+    settingsBotUpdateBtn = NaN;
+
+    botName = NaN;
+    botSlug = NaN;
+    appId = NaN;
+    protectionKey = NaN;
+    servicesKey = NaN;
+
+    constructor(bot, settings) {
+        this.botName = bot.botName;
+        this.botSlug = bot.botSlug;
+
+        this.appId = settings.bot_id;
+        this.protectionKey = settings.protection_key;
+        this.servicesKey = settings.services_key_accessing;
+
+        this.createBotSettingsForm();
+        this.insertSettingsValue();
+    }
+
+    createBotSettingsForm() {
+        document.getElementById('bot_panel_title').innerHTML = this.botName;
+
+        this.botPanelBody = document.getElementById('bot_panel_body');
+        this.botPanelBody.innerHTML = '';
+
+        this.form = document.createElement('form');
+        this.botNameField = document.createElement('input');
+        this.botAppIdField = document.createElement('input');
+        this.botProtectionKeyField = document.createElement('input');
+        this.botServicesKeyField = document.createElement('input');
+        this.settingsBotUpdateBtn = document.createElement('button');
+        let formLabel = document.createElement('label');
+
+        this.form.className = 'settings_bot_form';
+        this.botNameField.className = 'settings_bot_field';
+        this.botAppIdField.className = 'settings_bot_field';
+        this.botProtectionKeyField.className = 'settings_bot_field';
+        this.botServicesKeyField.className = 'settings_bot_field';
+        this.settingsBotUpdateBtn.className = 'setting_bot_update_btn';
+        formLabel.className = 'bot_settings_label';
+
+        this.botNameField.name = 'bot_name';
+        this.botAppIdField.name = 'bot_id';
+        this.botProtectionKeyField.name = 'protection_key';
+        this.botServicesKeyField.name = 'services_key_accessing';
+
+
+        this.botNameField.placeholder = 'Bot name';
+        this.botAppIdField.placeholder = 'Application id';
+        this.botProtectionKeyField.placeholder = 'Protection key';
+        this.botServicesKeyField.placeholder = 'Services key of accessing';
+
+        this.settingsBotUpdateBtn.innerText = 'Update';
+
+        this.form.appendChild(this.botNameField);
+        this.form.appendChild(this.botAppIdField);
+        this.form.appendChild(this.botProtectionKeyField);
+        this.form.appendChild(this.botServicesKeyField);
+        this.form.appendChild(this.settingsBotUpdateBtn);
+
+        this.botPanelBody.appendChild(this.form);
+    }
+
+    insertSettingsValue() {
+        this.botNameField.value = this.botName;
+        this.botAppIdField.value = this.appId;
+        this.botProtectionKeyField.value = this.protectionKey;
+        this.botServicesKeyField.value = this.servicesKey;
+    }
+}
+
+function getBotList() {
     let request = new Request();
 
     request.get(
@@ -170,13 +196,13 @@ function getBotList () {
                         botData.bot_for,
                         botData.date_of_creation,
                     );
-    
-                    bot.insertToBotlist(bot);
+
+                    bot.insertToBotList(bot);
                 }
             }
         },
         1,
     );
-} 
+}
 
 getBotList();

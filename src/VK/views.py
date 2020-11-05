@@ -40,10 +40,28 @@ def get_vk_bot_instance(request, bot_slug):
     try:
         bot = VkBot.objects.get(bot_slug=bot_slug)
     except VkBot.DoesNotExist:
+        print('does not exist')
         raise Http404('bot does not exist')
     print(bot.bot_place)
     print(request.user)
     if bot.bot_place != request.user:
+        print('403')
+        return HttpResponse(status=403, content_type="application/json")
+    else:
+        data = serialize('json', [bot])
+        return HttpResponse(data, content_type="application/json")
+
+
+@login_required
+def update_vk_bot_instance(request, bot_slug):
+    print(bot_slug)
+    try:
+        bot = VkBot.objects.get(bot_slug=bot_slug)
+    except VkBot.DoesNotExist:
+        print('does not exist')
+        raise Http404('bot does not exist')
+    if bot.bot_place != request.user:
+        print('403')
         return HttpResponse(status=403, content_type="application/json")
     else:
         data = serialize('json', [bot])
