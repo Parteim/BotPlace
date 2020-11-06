@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
-
+from django.views.decorators.http import require_POST
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 
@@ -52,17 +52,13 @@ def get_vk_bot_instance(request, bot_slug):
         return HttpResponse(data, content_type="application/json")
 
 
+@require_POST
 @login_required
-def update_vk_bot_instance(request, bot_slug):
-    print(bot_slug)
-    try:
-        bot = VkBot.objects.get(bot_slug=bot_slug)
-    except VkBot.DoesNotExist:
-        print('does not exist')
-        raise Http404('bot does not exist')
-    if bot.bot_place != request.user:
-        print('403')
-        return HttpResponse(status=403, content_type="application/json")
-    else:
-        data = serialize('json', [bot])
-        return HttpResponse(data, content_type="application/json")
+def update_vk_bot_instance(request):
+    json_data = json.loads(request.body)
+    print(json_data)
+
+    response = json.dumps(
+        {'text': f'Hi {json_data["name"]}'}
+    )
+    return HttpResponse(response, content_type='application/json')

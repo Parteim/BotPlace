@@ -169,6 +169,35 @@ class BotSettings {
         this.form.appendChild(this.settingsBotUpdateBtn);
 
         this.botPanelBody.appendChild(this.form);
+
+        this.settingsBotUpdateBtn.addEventListener(
+            'submit',
+            function () {
+                let request = new Request();
+                let botNameField = document.getElementsByName('bot_name');
+                let botAppIdField = document.getElementsByName('bot_id');
+                let botProtectionKeyField = document.getElementsByName('protection_key');
+                let botServicesKeyField = document.getElementsByName('services_key_accessing');
+                let data = {
+                    'bot_name': botNameField.value,
+                    'bot_app_id': botAppIdField.value,
+                    'protection_key': botProtectionKeyField.value,
+                    'services_key': botServicesKeyField.value,
+                };
+
+                request.post(
+                    'http://127.0.0.1:8000/vk/update-vk-bot',
+                    JSON.stringify(data),
+                    function (response) {
+                        let updatedSettings = response[0].fields;
+                        botNameField.value = updatedSettings.bot_name;
+                        botAppIdField.value = updatedSettings.bot_id;
+                        botProtectionKeyField.value = updatedSettings.protection_key;
+                        botServicesKeyField.value = updatedSettings.services_key_accessing;
+                    }
+                )
+            }
+        );
     }
 
     insertSettingsValue() {
