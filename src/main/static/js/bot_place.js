@@ -108,6 +108,7 @@ class BotSettings {
     botProtectionKeyField = NaN;
     botServicesKeyField = NaN;
     settingsBotUpdateBtn = NaN;
+    botSlugField = NaN;
 
     botName = NaN;
     botSlug = NaN;
@@ -130,6 +131,10 @@ class BotSettings {
     createBotSettingsForm() {
         document.getElementById('bot_panel_title').innerHTML = this.botName;
 
+        this.botSlugField = document.createElement('input');
+        this.botSlugField.name = 'bot_slug';
+        this.botSlugField.type = 'hidden';
+
         this.botPanelBody = document.getElementById('bot_panel_body');
         this.botPanelBody.innerHTML = '';
 
@@ -140,6 +145,8 @@ class BotSettings {
         this.botServicesKeyField = document.createElement('input');
         this.settingsBotUpdateBtn = document.createElement('button');
         let formLabel = document.createElement('label');
+
+        this.settingsBotUpdateBtn.type = 'button';
 
         this.form.className = 'settings_bot_form';
         this.botNameField.className = 'settings_bot_field';
@@ -167,36 +174,45 @@ class BotSettings {
         this.form.appendChild(this.botProtectionKeyField);
         this.form.appendChild(this.botServicesKeyField);
         this.form.appendChild(this.settingsBotUpdateBtn);
+        this.form.appendChild(this.botSlugField);
 
         this.botPanelBody.appendChild(this.form);
 
-        this.settingsBotUpdateBtn.addEventListener(
-            'submit',
-            function () {
-                let request = new Request();
-                let botNameField = document.getElementsByName('bot_name');
-                let botAppIdField = document.getElementsByName('bot_id');
-                let botProtectionKeyField = document.getElementsByName('protection_key');
-                let botServicesKeyField = document.getElementsByName('services_key_accessing');
-                let data = {
+        let updateSettingsFunk = () => {
+            let request = new Request();
+            let botNameField = document.getElementsByName('bot_name')[0];
+            let botAppIdField = document.getElementsByName('bot_id')[0];
+            let botProtectionKeyField = document.getElementsByName('protection_key')[0];
+            let botServicesKeyField = document.getElementsByName('services_key_accessing')[0];
+            let botSlugField = document.getElementsByName('bot_slug')[0];
+            let data = {
+                'botSlug': botSlugField.value,
+                'updateData': {
                     'bot_name': botNameField.value,
                     'bot_app_id': botAppIdField.value,
                     'protection_key': botProtectionKeyField.value,
                     'services_key': botServicesKeyField.value,
-                };
+                }
+            };
 
-                request.post(
-                    'http://127.0.0.1:8000/vk/update-vk-bot',
-                    JSON.stringify(data),
-                    function (response) {
-                        let updatedSettings = response[0].fields;
-                        botNameField.value = updatedSettings.bot_name;
-                        botAppIdField.value = updatedSettings.bot_id;
-                        botProtectionKeyField.value = updatedSettings.protection_key;
-                        botServicesKeyField.value = updatedSettings.services_key_accessing;
-                    }
-                )
-            }
+            request.post(
+                'http://127.0.0.1:8000/vk/update-vk-bot',
+                JSON.stringify(data),
+                function (response) {
+                    let updatedSettings = response[0].fields;
+                    console.log(response)
+                    botNameField.value = updatedSettings.bot_name;
+                    botAppIdField.value = updatedSettings.bot_id;
+                    botProtectionKeyField.value = updatedSettings.protection_key;
+                    botServicesKeyField.value = updatedSettings.services_key_accessing;
+                }
+            )
+
+        };
+
+        this.settingsBotUpdateBtn.addEventListener(
+            'click',
+            updateSettingsFunk,
         );
     }
 
@@ -205,6 +221,7 @@ class BotSettings {
         this.botAppIdField.value = this.appId;
         this.botProtectionKeyField.value = this.protectionKey;
         this.botServicesKeyField.value = this.servicesKey;
+        this.botSlugField.value = this.botSlug;
     }
 }
 

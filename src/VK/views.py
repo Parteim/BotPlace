@@ -9,6 +9,8 @@ import json
 from .forms import VkBotFormCreation
 from .models import VkBot
 
+from main.models import BaseBot
+
 
 @login_required
 def vk_create_bot(request):
@@ -56,9 +58,21 @@ def get_vk_bot_instance(request, bot_slug):
 @login_required
 def update_vk_bot_instance(request):
     json_data = json.loads(request.body)
-    print(json_data)
-
-    response = json.dumps(
-        {'text': f'Hi {json_data["name"]}'}
+    vk_bot = VkBot.objects.get(
+        bot_slug=json_data['botSlug']
     )
+    update_data = json_data['updateData']
+
+    print(vk_bot)
+
+    vk_bot.bot_name = update_data['bot_name']
+    vk_bot.bot_app_id = update_data['bot_app_id']
+    vk_bot.protection_key = update_data['protection_key']
+    vk_bot.services_key = update_data['services_key']
+
+    vk_bot.save()
+
+    print(vk_bot)
+
+    response = serialize('json', [vk_bot])
     return HttpResponse(response, content_type='application/json')

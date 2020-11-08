@@ -45,9 +45,3 @@ class WallBot(BaseVkBot):
 
         return posts
 
-
-bot = VkBotInstance(
-    access_token='4334a1cb4334a1cb4334a1cb9e43400948443344334a1cb1caf1674ceaf5843078cbd88'
-)
-
-print(WallBot(bot).get_posts('hotpricesneakers', 131))
